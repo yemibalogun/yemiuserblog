@@ -1,0 +1,7 @@
+{% macro gravatar(email, size=80, rating='g', default='mm', force_default=False, use_ssl=True) -%}
+    {%- set hash = email|md5 %}
+    {%- set params = {'s': size, 'r': rating, 'd': default, 'f': force_default and 'y' or 'n'} %}
+    {%- set scheme = use_ssl and 'https' or 'http' %}
+    {{- scheme }}://www.gravatar.com/avatar/{{ hash }}?{{
+        params|urlencode }}
+{% endmacro %}
