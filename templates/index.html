@@ -8,7 +8,7 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>Yemi's Blog</h1>
-            <span class="subheading">A collection of random musings.</span>
+            <span class="subheading">A collection of random thoughts.</span>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
             on {{post.date}}
             
             {% if current_user.id == 1 %}
-            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+            <a style="padding:1em; color: rgba(255, 0, 0, 0.551)" href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
             {% endif %}
           </p>
         </div>
@@ -51,6 +51,6 @@
       </div>
     </div>
   </div>
-  <hr>
+  <hr style="margin: 1.5em auto;">
 
 {% include "footer.html" %}
