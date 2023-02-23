@@ -187,7 +187,6 @@ def logout():
 
 
 @app.route("/post/<int:post_id>", methods=['GET', 'POST'])
-@login_required
 def show_post(post_id):
     form = CommentForm()
     requested_post = BlogPost.query.get(post_id)
