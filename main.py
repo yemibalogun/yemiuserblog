@@ -2,15 +2,12 @@ from flask import Flask, render_template, redirect, url_for, flash, get_flashed_
 from functools import wraps
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, Email
 from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-from forms import CreatePostForm, RegisterUserForm, LoginForm, CommentForm 
+from forms import CreatePostForm, LoginForm, CommentForm, ContactForm, RegisterForm
 from flask_gravatar import Gravatar
 from datetime import datetime 
 import hashlib
@@ -79,13 +76,17 @@ class Comment(db.Model):
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
     
-db.create_all()
-
-class RegisterForm(FlaskForm):
-    username = StringField('Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Register')
+class Contact(db.Model):
+    __tablename__="contacts"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    phone_number = db.Column(db.String, nullable=False)
+    message = db.Column(db.String, nullable=False)
+    date = db.Column(db.Date, default=datetime.today().strftime('%d-%b-%Y'))
+    
+with app.app_context():
+    db.create_all()
     
 def admin_only(view_func):
     @wraps(view_func)
@@ -124,7 +125,7 @@ def get_all_posts():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegisterUserForm()
+    form = RegisterForm()
     messages = get_flashed_messages()
     
     if form.validate_on_submit():
@@ -216,9 +217,22 @@ def about():
     return render_template("about.html", year=current_year)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=['GET', 'POST'])
 def contact():
-    return render_template("contact.html", year=current_year)
+    form = ContactForm()
+    if form.validate_on_submit():
+        new_message = Contact(
+            name=form.name.data,
+            email=form.email.data,
+           phone_number=form.phone_number.data,
+           message=form.message.data
+        )
+        
+        db.session.add(new_message)
+        db.session.commit()
+    
+        
+    return render_template("contact.html", form=form, year=current_year)
 
 
 @app.route("/new-post", methods=['GET', 'POST'])
