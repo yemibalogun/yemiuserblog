@@ -250,7 +250,7 @@ header.masthead {
   background-color: #868e96;
   background-attachment: scroll;
   position: relative;
-  background-size: 50% 50%;
+  background-size: cover;
 }
 
 header.masthead .overlay {
@@ -359,7 +359,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview > a > .post-subtitle {
-  font-weight: 00;
+  font-weight: 300;
   margin: 0 0 10px;
 }
 
