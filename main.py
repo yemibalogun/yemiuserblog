@@ -380,5 +380,6 @@ def update_reaction(post_id, reaction_type):
         db.session.commit()
     return redirect(url_for('show_post', post_id=post_id, reaction_type=reaction_type, likes=like_count, dislikes=dislike_count))
         
+        
 if __name__ == "__main__":
     app.run(debug=True)
