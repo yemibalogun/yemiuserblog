@@ -2,6 +2,7 @@
 {% from "gravatar.html" import gravatar %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('{{post.img_url}}')">
     <div class="overlay"></div>
@@ -19,13 +20,23 @@
       </div>
     </div>
   </header>
-
+  
   <!-- Post Content -->
   <article>
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
+        <div style="line-height: 1.8;" class="col-lg-8 col-md-10 mx-auto">
             {{ post.body|safe }}
+
+
+              <a id="post-{{ post.id }}" href="{{ url_for('update_reaction', post_id=post.id, reaction_type='like') }}" onclick="handleLikeClick()" style="scroll-behavior: smooth;"><i id="like-icon" style="color: grey;" class="fas fa-thumbs-up"></i></a>
+                
+                <span style="color: grey; padding-right: 1em;" id="like-count">{{ post.likes }}</span>
+                
+              <a style="scroll-behavior: smooth;" href="{{ url_for('update_reaction', post_id=post.id, reaction_type='dislike') }}" onclick="handleDislikeClick()"><i id="dislike-icon" style="color: grey;" class="fas fa-thumbs-down"></i></a>
+                
+                <span style="color: grey;" id="dislike-count">{{ post.dislikes }}</span>
+                   
           <hr>
 
             <div class="clearfix">
@@ -84,5 +95,22 @@
     </div>
   </article>
 
+  <script>
+    const likeIcon = document.getElementById('like-icon');
+    const dislikeIcon = document.getElementById('dislike-icon');
+  
+    function handleLikeClick() {
+      likeIcon.style.color = '#0275d8';
+      dislikeIcon.style.color = 'grey';  
+    }
+  
+    function handleDislikeClick() {
+      dislikeIcon.style.color = '#d9534f';
+      likeIcon.style.color = 'grey';
+    }
+  </script>
+
   <hr>
 {% include "footer.html" %}
+
+ 

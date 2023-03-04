@@ -34,13 +34,20 @@
             on {{post.date}}
             
             {% if current_user.id == 1 %}
-            <a style="padding:1em; color: rgba(255, 0, 0, 0.551)" href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
+            <a style="padding: 0.5em; color: rgba(255, 0, 0, 0.551)" href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
             {% endif %}
+            
+            <i id="like-icon" style="color: grey;" class="fas fa-thumbs-up"></i>
+                
+            <span style="color: grey; padding-right: .5em;" id="like-count">{{ post.likes }}</span>
+                
+            <i id="dislike-icon" style="color: grey;" class="fas fa-thumbs-down"></i>
+                
+            <span style="color: grey;" id="dislike-count">{{ post.dislikes }}</span>
           </p>
         </div>
         <hr>
         {% endfor %}
-
 
         <!-- New Post -->
         <div class="clearfix">

@@ -3,6 +3,9 @@
  * Copyright 2013-2020 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
  */
+html.no-scroll-animation {
+  scroll-behavior: auto;
+}
 
 body {
   font-size: 20px;
@@ -247,7 +250,7 @@ header.masthead {
   background-color: #868e96;
   background-attachment: scroll;
   position: relative;
-  background-size: cover;
+  background-size: 50% 50%;
 }
 
 header.masthead .overlay {
@@ -356,7 +359,7 @@ header.masthead .post-heading .meta a {
 }
 
 .post-preview > a > .post-subtitle {
-  font-weight: 300;
+  font-weight: 00;
   margin: 0 0 10px;
 }
 
